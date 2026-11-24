@@ -1,0 +1,4 @@
+FROM mysql:8.0
+
+# Copiar el script de inicialización para que la base de datos se cree con todas las tablas y datos
+COPY init-db/init.sql /docker-entrypoint-initdb.d/

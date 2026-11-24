@@ -5,6 +5,7 @@
 *.log
 *.sql
 *.sql.gz
+!init-db/init.sql
 
 # Archivos generados o sensibles de WordPress
 wp-content/uploads/*

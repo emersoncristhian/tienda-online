@@ -11,6 +11,9 @@ RUN { \
 # Copiar el código del proyecto al directorio web de Apache
 COPY . /var/www/html/
 
+# Limpiar archivos innecesarios dentro del servidor web
+RUN rm -rf /var/www/html/init-db /var/www/html/Dockerfile* /var/www/html/render.yaml
+
 # Asegurar que la carpeta uploads exista y tenga permisos iniciales
 RUN mkdir -p /var/www/html/wp-content/uploads \
     && chown -R www-data:www-data /var/www/html

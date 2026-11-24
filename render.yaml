@@ -1,29 +1,56 @@
 services:
+  # 1. Base de Datos MySQL Privada
+  - type: pserv
+    name: tienda-mysql
+    runtime: docker
+    dockerfilePath: ./Dockerfile.mysql
+    plan: starter
+    envVars:
+      - key: MYSQL_DATABASE
+        value: tienda_online_wp
+      - key: MYSQL_USER
+        value: wp_user
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+
+  # 2. Aplicación Web WordPress WooCommerce
   - type: web
     name: tienda-online
     runtime: docker
-    plan: starter
     dockerfilePath: ./Dockerfile
+    plan: starter
     healthCheckPath: /
     autoDeploy: true
     envVars:
       - key: WORDPRESS_DB_HOST
-        sync: false
+        fromService:
+          type: pserv
+          name: tienda-mysql
+          property: host
       - key: WORDPRESS_DB_NAME
-        sync: false
+        value: tienda_online_wp
       - key: WORDPRESS_DB_USER
-        sync: false
+        value: wp_user
       - key: WORDPRESS_DB_PASSWORD
-        sync: false
+        fromService:
+          type: pserv
+          name: tienda-mysql
+          envVarKey: MYSQL_PASSWORD
       - key: WORDPRESS_DB_SSL
         value: "false"
-      - key: SMTP_GMAIL_USER
-        sync: false
-      - key: SMTP_GMAIL_PASS
-        sync: false
       - key: WP_HOME
         sync: false
       - key: WP_SITEURL
+        sync: false
+      - key: SMTP_GMAIL_USER
+        sync: false
+      - key: SMTP_GMAIL_PASS
         sync: false
     disk:
       name: wordpress-uploads
