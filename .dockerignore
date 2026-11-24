@@ -1,0 +1,12 @@
+.git
+.gitignore
+.env*
+*.log
+*.sql
+*.sql.gz
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/jetpack-waf/
+preview_moto.html
+README-DEPLOY.md

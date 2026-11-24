@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: tienda-online
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: WORDPRESS_DB_HOST
+        sync: false
+      - key: WORDPRESS_DB_NAME
+        sync: false
+      - key: WORDPRESS_DB_USER
+        sync: false
+      - key: WORDPRESS_DB_PASSWORD
+        sync: false
+      - key: WORDPRESS_DB_SSL
+        value: "false"
+      - key: SMTP_GMAIL_USER
+        sync: false
+      - key: SMTP_GMAIL_PASS
+        sync: false
+      - key: WP_HOME
+        sync: false
+      - key: WP_SITEURL
+        sync: false
+    disk:
+      name: wordpress-uploads
+      mountPath: /var/www/html/wp-content/uploads
+      sizeGB: 10

@@ -1,0 +1,22 @@
+# Secretos y archivos locales
+.env
+.env.*
+!.env.example
+*.log
+*.sql
+*.sql.gz
+
+# Archivos generados o sensibles de WordPress
+wp-content/uploads/*
+wp-content/cache/
+wp-content/upgrade/*
+wp-content/backup-*
+
+# Sistema/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# El archivo de prueba no forma parte del sitio público
+preview_moto.html
